@@ -10,11 +10,12 @@ const schema = mongoose.Schema(
             type: String,
             default: ''
         },
-        product: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Product',
-            default: ''
-        },
+        products: [
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'Product'
+            }
+        ],
     },
     { timestamps: true }
 )
