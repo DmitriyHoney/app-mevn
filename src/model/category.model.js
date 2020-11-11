@@ -12,7 +12,8 @@ const schema = mongoose.Schema(
         },
         product: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'Product'
+            ref: 'Product',
+            default: ''
         },
     },
     { timestamps: true }

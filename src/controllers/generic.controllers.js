@@ -11,7 +11,7 @@ const genericCRUD = model => ({
     },
     async findAll(req, res) {
         try {
-            const data = await model.find()
+            const data = await model.find({})
             return res.status(200).json(data)
         } catch (err) {
             return res.status(400).json(boom.boomify(err))
@@ -19,8 +19,10 @@ const genericCRUD = model => ({
     },
     async create({ body }, res) {
         try {
-            const item = new model(body)
+            console.log(body, 'body');
+            const item = await new model(body)
             const newItem = await item.save(item)
+
             return res.status(200).json(newItem)
         } catch (err) {
             return res.status(400).json(boom.boomify(err))
@@ -38,6 +40,14 @@ const genericCRUD = model => ({
         try {
             const data = await model.findByIdAndDelete(id)
             return res.status(200).json(data)
+        } catch (err) {
+            return res.status(400).json(boom.boomify(err))
+        }
+    },
+    async deleteAll(_, res) {
+        try {
+            await model.deleteMany()
+            return res.status(200).json({ message: 'Deleted all successs' })
         } catch (err) {
             return res.status(400).json(boom.boomify(err))
         }
